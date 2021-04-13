@@ -1,6 +1,6 @@
 import { CharacterModel } from './character.model';
 import { CharacterContext } from './character.context';
-import { Character } from 'pods/character/character.api-model';
+import { Character, CharacterApiForUpdate } from 'pods/character/character.api-model';
 
 export const getCharacterList = async (name: string): Promise<CharacterModel[]> => {
 
@@ -49,3 +49,13 @@ export const getCharacter = async (id: string): Promise<CharacterModel> => {
 
   export const insertCharacterList = async (characterList: CharacterModel[]) =>
   await CharacterContext.insertMany(characterList);
+
+export const updateCharacterBestSentences = async (characterData: CharacterApiForUpdate) =>
+  await CharacterContext.updateOne(
+    {id: characterData.id},
+    {
+      $set: {
+        bestSentences: characterData.bestSentences
+      }
+    }
+  );

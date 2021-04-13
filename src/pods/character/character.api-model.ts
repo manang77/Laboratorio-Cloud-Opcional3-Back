@@ -35,3 +35,8 @@ export interface CharacterApi {
   info: Info;
   results: Character[];
 }
+
+export interface CharacterApiForUpdate {
+  id: number;
+  bestSentences: string[];
+}

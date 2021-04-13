@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { getCharacterList, getCharacter } from 'dals/character';
+import { getCharacterList, getCharacter, updateCharacterBestSentences } from 'dals/character';
 import { mapCharacterListFromModelToApi, mapCharacterFromModelToApi } from './character-mappers';
 import { Info, CharacterApi, Character } from './character.api-model';
 import { envConstants } from 'core/constants';
+import bodyParser from 'body-parser';
 
 export const characterApi = Router();
 
@@ -39,4 +40,16 @@ characterApi.get('/:id', async (req, res) => {
   } catch (error) {
     res.sendStatus(400);
   }
+});
+
+characterApi.patch('/:id', async (req, res) => {
+
+  try {
+    const { id, bestSentences } = req.body;
+    await updateCharacterBestSentences(req.body);
+    res.send("Success");
+  } catch (error) {
+    res.sendStatus(400);
+  }
+
 });
