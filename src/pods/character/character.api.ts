@@ -31,7 +31,6 @@ characterApi.get('/', async (req, res) => {
 });
 
 characterApi.get('/:id', async (req, res) => {
-
   try {
     const { id } = req.params;
     const character = await getCharacter(id as string);
