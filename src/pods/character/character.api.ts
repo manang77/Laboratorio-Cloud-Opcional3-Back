@@ -2,14 +2,15 @@ import { Router } from 'express';
 import { getCharacterList, getCharacter } from 'dals/character';
 import { mapCharacterListFromModelToApi, mapCharacterFromModelToApi } from './character-mappers';
 import { Info, CharacterApi, Character } from './character.api-model';
+import { envConstants } from 'core/constants';
 
 export const characterApi = Router();
 
 characterApi.get('/', async (req, res) => {
   try {
     const {_limit, _page, name_like} = req.query;
-    const pageSize = parseInt(_limit as string);
-    const page = parseInt(_page as string);
+    const pageSize = (_limit) ? parseInt(_limit as string) : parseInt(envConstants.PAGE_SIZE);
+    const page = (_page) ? parseInt(_page as string) : 1;
     const characterListModel = await getCharacterList(name_like as string);
     const characterListApi = mapCharacterListFromModelToApi(characterListModel);
     const characterInfo: Info = {

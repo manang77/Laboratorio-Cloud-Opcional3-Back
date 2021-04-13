@@ -9,7 +9,7 @@ export const connectToDB = async (connectionString: string) => {
     useFindAndModify: false,
   });
 
-  console.log('Connected to DB');
+  console.log(`Connected to DB`);
 
   return db;
 };

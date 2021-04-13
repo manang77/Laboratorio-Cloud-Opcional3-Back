@@ -2,14 +2,15 @@ import { Router } from 'express';
 import { getEpisodeList, getEpisode } from 'dals/episode';
 import { mapEpisodeListFromModelToApi, mapEpisodeFromModelToApi } from './episode.mappers';
 import { Info, EpisodeApi, Episode } from './episode.api-model';
+import { envConstants } from 'core/constants';
 
 export const episodeApi = Router();
 
 episodeApi.get('/', async (req, res) => {
   try {
     const { _limit, _page, name_like } = req.query;
-    const pageSize = parseInt(_limit as string);
-    const page = parseInt(_page as string);
+    const pageSize = (_limit) ? parseInt(_limit as string) : parseInt(envConstants.PAGE_SIZE);
+    const page = (_page) ? parseInt(_page as string) : 1;
     const episodeListModel = await getEpisodeList(name_like as string);
     const episodeListApi = mapEpisodeListFromModelToApi(episodeListModel);
     const characterInfo: Info = {
