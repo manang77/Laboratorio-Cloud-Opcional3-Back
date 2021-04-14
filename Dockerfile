@@ -9,7 +9,7 @@ RUN npm run build
 
 FROM stage_0 AS stage_2
 COPY --from=stage_1 /usr/app/dist ./
-COPY --from=stage_1 /usr/app/public ./
+COPY --from=stage_1 /usr/app/public ./public
 COPY ./package.json ./
 RUN npm install --only=production
 
