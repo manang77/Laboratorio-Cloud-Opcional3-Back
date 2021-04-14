@@ -7,7 +7,6 @@ export const createApp = () => {
   app.use(cors({ origin: envConstants.CORS_ORIGIN }));
 
   app.use(express.static('public'));
-  //app.use('avatar', express.static(__dirname + '/public/avatar'));
 
   var bodyParser = require('body-parser');
   app.use(bodyParser.json());
